@@ -1,0 +1,23 @@
+{
+  "name": "it-122-js-2",
+  "version": "1.0.0",
+  "description": "This is IT 122 test package.json file working with NPM",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mohamedgali/it122-JAVASCRIPT2.git"
+  },
+  "keywords": [
+    "Node",
+    "NPM"
+  ],
+  "author": "Mohamed G Ali",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mohamedgali/it122-JAVASCRIPT2/issues"
+  },
+  "homepage": "https://github.com/Mohamedgali/it122-JAVASCRIPT2#readme"
+}
