@@ -1,32 +1,37 @@
 
+'use strict'
+const express = require("express");
+const bodyParser = require("body-parser")
 
-//http codes 200s, 400s, 500s
+const app = express();
 
-//learn how to respond with some html contant and the the count of the items 
-//listen to call coming to a specific path such as /home or /about 
-//enlist paths and respond to good path with 200 and some data 
-//bad path gets 404
+app.set('port', process.env.PORT || 3000);
+app.use(express.static(__dirname + '/public')); // set location for static files
+app.use(bodyParser.urlencoded({extended: true})); // parse form submissions
 
-
-const movies = require ('./data')
+// send static file as response
+app.get('/', (req, res) => {
+  res.type('text/html');
+  res.sendFile(__dirname + '/public/home.html'); 
+ });
  
-const http = require("http");
- 
-http.createServer((req,res) => {
-   var path = req.url.toLowerCase();
- switch(path) {
-   case '/':
-       res.writeHead(200, {'Content-Type': 'text/plain'});
-       res.end(movies.getAll().length.toString());
-   break;
-   case '/about':
-         res.writeHead(200, {'Content-Type': 'text/plain'});
-         res.end('about');
-         console.log('about me')
-   break;
-   default:
-         res.writeHead(404, {'Content-Type': 'text/plain'});
-         res.end('404:Page not found.');
-     }
-}).listen(process.env.PORT || 3000)
- 
+ // send plain text response
+ app.get('/about', (req, res) => {
+  res.type('text/plain');
+  res.send('About page');
+ });
+
+ // define 404 handler
+app.use( (req,res) => {
+  res.type('text/plain'); 
+  res.status(404);
+  res.send('404 - Not found');
+ });
+ app.listen(app.get('port'), () => {
+  console.log('Express started'); 
+ });
+
+ let exphbs = require("express-handlebars"); // should be at top of module 
+
+app.engine('handlebars', exphbs({defaultLayout: false}));
+app.set("view engine", "handlebars");
